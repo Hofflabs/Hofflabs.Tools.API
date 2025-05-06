@@ -1,9 +1,15 @@
 <script setup lang="ts">
 
-import SettingsDialog from '../GeneralSettingsDialog.vue'
+import GeneralSettingsDialog from '../settings/GeneralSettingsDialog.vue'
+import TeamSettingsDialog from '../settings/TeamSettingsDialog.vue'
+import ModuleSettingsDialog from '../settings/ModuleSettingsDialog.vue'
+import ConfigurationSettingsDialog from '../settings/ConfigurationSettingsDialog.vue'
 import { ref } from 'vue'
 
-const openSettingsDialog = ref(false)
+const openGeneralSettingsDialog = ref(false)
+const openTeamSettingsDialog = ref(false)
+const openModuleSettingsDialog = ref(false)
+const openConfigurationSettingsDialog = ref(false)
 
 import type { SidebarProps } from '@/components/ui/sidebar'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -102,19 +108,19 @@ const sidebarData = {
   items: [
     {
       title: 'General',
-      action: () => openSettingsDialog.value = true,
+      action: () => openGeneralSettingsDialog.value = true,
     },
     {
       title: 'Team',
-      action: () => openSettingsDialog.value = true,
+      action: () => openTeamSettingsDialog.value = true,
     },
     {
-      title: 'Permissions',
-      action: () => openSettingsDialog.value = true,
+      title: 'Modules',
+      action: () => openModuleSettingsDialog.value = true,
     },
     {
       title: 'Configuration',
-      action: () => openSettingsDialog.value = true,
+      action: () => openConfigurationSettingsDialog.value = true,
     },
   ],
 },
@@ -186,5 +192,8 @@ const sidebarData = {
       <SidebarRail />
     </Sidebar>
   </ScrollArea>
-  <SettingsDialog v-if="openSettingsDialog" @update:open="openSettingsDialog = $event" />
+  <GeneralSettingsDialog v-if="openGeneralSettingsDialog" @update:open="openGeneralSettingsDialog = $event" />
+  <TeamSettingsDialog v-if="openTeamSettingsDialog" @update:open="openTeamSettingsDialog = $event" />
+  <ModuleSettingsDialog v-if="openModuleSettingsDialog" @update:open="openModuleSettingsDialog = $event" />
+  <ConfigurationSettingsDialog v-if="openConfigurationSettingsDialog" @update:open="openConfigurationSettingsDialog = $event" />
 </template>
