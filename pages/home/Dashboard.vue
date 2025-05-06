@@ -89,6 +89,7 @@ const visitorRegionData = [
 </script>
 
 <template>
+  <client-only>
   <SidebarProvider>
     <AppSidebar />
     <SidebarInset>
@@ -214,5 +215,6 @@ const visitorRegionData = [
       </div>
     </SidebarInset>
   </SidebarProvider>
+</client-only>
 </template>
 

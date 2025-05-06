@@ -1,4 +1,10 @@
 <script setup lang="ts">
+
+import SettingsDialog from '../GeneralSettingsDialog.vue'
+import { ref } from 'vue'
+
+const openSettingsDialog = ref(false)
+
 import type { SidebarProps } from '@/components/ui/sidebar'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import NavSecondary from '@/components/navigation/NavSecondary.vue'
@@ -91,28 +97,28 @@ const sidebarData = {
       ],
     },
     {
-      title: 'Settings',
-      url: '#',
-      icon: icons.Settings2,
-      items: [
-        {
-          title: 'General',
-          url: '#',
-        },
-        {
-          title: 'Team',
-          url: '#',
-        },
-        {
-          title: 'Permissions',
-          url: '#',
-        },
-        {
-          title: 'Configuration',
-          url: '#',
-        },
-      ],
+  title: 'Settings',
+  icon: icons.Settings2,
+  items: [
+    {
+      title: 'General',
+      action: () => openSettingsDialog.value = true,
     },
+    {
+      title: 'Team',
+      action: () => openSettingsDialog.value = true,
+    },
+    {
+      title: 'Permissions',
+      action: () => openSettingsDialog.value = true,
+    },
+    {
+      title: 'Configuration',
+      action: () => openSettingsDialog.value = true,
+    },
+  ],
+},
+
   ],
   projects: [
     {
@@ -167,7 +173,7 @@ const sidebarData = {
       </SidebarHeader>
       <SidebarContent>
         <NavMain :items="sidebarData.navMain" />
-        <NavProjects :projects="sidebarData.projects" />
+        <!-- <NavProjects :projects="sidebarData.projects" /> -->
         <NavSecondary :items="sidebarData.navSecondary" class="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
@@ -180,4 +186,5 @@ const sidebarData = {
       <SidebarRail />
     </Sidebar>
   </ScrollArea>
+  <SettingsDialog v-if="openSettingsDialog" @update:open="openSettingsDialog = $event" />
 </template>
