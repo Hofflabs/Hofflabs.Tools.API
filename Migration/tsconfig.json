@@ -1,14 +1,13 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"],
+      "~/*": ["./*"]
+    },
     "types": [
       "@nuxt/types",
-      "types",
-      "nuxt.config.ts",
-      "server",
-      "pages",
-      "components"
-    ]
+    ],
   },
-  // https://nuxt.com/docs/guide/concepts/typescript
   "extends": "./.nuxt/tsconfig.json"
 }
