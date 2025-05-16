@@ -1,26 +1,26 @@
-import createDOMPurify from 'dompurify'
-import { JSDOM } from 'jsdom'
+import sanitizeHtml from 'sanitize-html'
+import validator from 'validator'
 
-const window = new JSDOM('').window
-const DOMPurify = createDOMPurify(window)
-
-const dangerousPatterns: RegExp[] = [
-  /<script.*?>.*?<\/script>/gi,          // XSS
-  /on\w+=".*?"/gi,                        // Inline JS handlers
-  /javascript:/gi,                       // JS in href/src
-  /data:text\/html/gi,                   // Data URI XSS
-  /['"`][\s]*\b(or|and)\b[\s]*['"`]/gi,   // SQL boolean injection
+const dangerousPatterns = [
+  /on\w+=".*?"/gi,
+  /javascript:/gi,
+  /data:text\/html/gi,
+  /['"`][\s]*\b(or|and)\b[\s]*['"`]/gi,
   /\b(UNION|SELECT|INSERT|DELETE|UPDATE|DROP|ALTER|CREATE|REPLACE)\b/gi,
-  /--|;|\/\*|\*\/|@@|@/g,                 // SQL comment/meta
-  /\0/g                                   // Null byte
+  /--|;|\/\*|\*\/|@@|@/g,
+  /\0/g
 ]
 
-export function validateUserInput(input: string): { safe: boolean, sanitized: string } {
+export function validateUserInput(input: string): { safe: boolean; sanitized: string } {
   if (typeof input !== 'string') return { safe: false, sanitized: '' }
 
-  const sanitized = DOMPurify.sanitize(input, { ALLOWED_TAGS: [], ALLOWED_ATTR: [] }).trim()
+  const sanitized = sanitizeHtml(input, {
+    allowedTags: [],
+    allowedAttributes: {}
+  }).trim()
 
-  const isSafe = !dangerousPatterns.some((pattern) => pattern.test(sanitized))
+  const isSafe = validator.isAscii(sanitized) &&
+                 !dangerousPatterns.some(p => p.test(sanitized))
 
   return {
     safe: isSafe,

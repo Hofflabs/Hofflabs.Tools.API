@@ -1,4 +1,4 @@
-# Hofflabs Hub Instructions
+# Nuxt Minimal Starter
 
 Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
@@ -9,6 +9,12 @@ Make sure to install dependencies:
 ```bash
 # npm
 npm install
+
+# pnpm
+pnpm install
+
+# yarn
+yarn install
 
 # bun
 bun install
@@ -22,70 +28,48 @@ Start the development server on `http://localhost:3000`:
 # npm
 npm run dev
 
+# pnpm
+pnpm dev
+
+# yarn
+yarn dev
+
 # bun
 bun run dev
 ```
 
 ## Production
 
-Build the application for production (client + server):
+Build the application for production:
 
 ```bash
 # npm
 npm run build
 
+# pnpm
+pnpm build
+
+# yarn
+yarn build
+
 # bun
 bun run build
 ```
 
-Locally preview the production build:
+Locally preview production build:
 
 ```bash
 # npm
 npm run preview
 
+# pnpm
+pnpm preview
+
+# yarn
+yarn preview
+
 # bun
 bun run preview
-```
-
----
-
-## Advanced Builds
-
-### Build only the server (Nitro worker / API layer):
-
-```bash
-# npm
-npx nuxi build
-# server output: .output/server/
-
-# bun
-bunx nuxi build
-# server output: .output/server/
-```
-
-To run server only:
-
-```bash
-node .output/server/index.mjs
-```
-
-### Build only the static frontend (Vue pages, public, .vue files):
-
-```bash
-# npm
-npx nuxi generate
-# output: dist/
-
-# bun
-bunx nuxi generate
-# output: dist/
-```
-
-Or get built frontend assets only from:
-
-```
-.output/public/
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

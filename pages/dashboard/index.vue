@@ -4,7 +4,7 @@ export const iframeHeight = '800px'
 </script>
 
 <script setup lang="ts">
-import SettingsDialog from '../../components/SettingsDialog.vue'
+import SettingsDialog from '@/components/settings/TeamSettingsDialog.vue'
 </script>
 
 <template>

@@ -10,7 +10,7 @@ async function ensureLogDirExists() {
   } catch {}
 }
 
-await ensureLogDirExists()
+ensureLogDirExists()
 
 // Async queue buffer
 const queue: string[] = []
