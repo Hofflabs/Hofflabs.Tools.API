@@ -1,0 +1,78 @@
+<script setup lang="ts">
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible'
+import {
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+} from '@/components/ui/sidebar'
+import { ChevronRight, type LucideIcon } from 'lucide-vue-next'
+
+defineProps<{
+  items: {
+    title: string
+    url?: string
+    action?: () => void
+    icon?: LucideIcon
+    isActive?: boolean
+    items?: { title: string; url?: string; action?: () => void }[]
+  }[]
+}>()
+</script>
+
+<template>
+  <SidebarGroup>
+    <SidebarMenu>
+      <Collapsible
+        v-for="item in items"
+        :key="item.title"
+        as-child
+        :default-open="item.isActive"
+        class="group/collapsible"
+      >
+        <SidebarMenuItem>
+          <CollapsibleTrigger as-child>
+            <SidebarMenuButton :tooltip="item.title" @click="item.action?.()">
+              <component :is="item.icon" v-if="item.icon" />
+              <span>{{ item.title }}</span>
+              <ChevronRight class="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+            </SidebarMenuButton>
+          </CollapsibleTrigger>
+          <CollapsibleContent>
+            <SidebarMenuSub>
+              <SidebarMenuSubItem
+                v-for="subItem in item.items"
+                :key="subItem.title"
+              >
+                <SidebarMenuSubButton as-child>
+                  <template v-if="subItem.url">
+                    <a :href="subItem.url">
+                      <span>{{ subItem.title }}</span>
+                    </a>
+                  </template>
+                  <template v-else-if="subItem.action">
+                    <button
+                      type="button"
+                      class="w-full text-left"
+                      @click="subItem.action"
+                    >
+                      {{ subItem.title }}
+                    </button>
+                  </template>
+                </SidebarMenuSubButton>
+              </SidebarMenuSubItem>
+            </SidebarMenuSub>
+          </CollapsibleContent>
+        </SidebarMenuItem>
+      </Collapsible>
+    </SidebarMenu>
+  </SidebarGroup>
+</template>
